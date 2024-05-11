@@ -1,19 +1,14 @@
-using Newtonsoft.Json;
-using System.Net;
-using System.Text;
-
+using System.Net.Http.Headers;
 namespace FcuQrApp.Pages;
 
-[QueryProperty("Qrcode", "qrcode")]
+[QueryProperty(nameof(Qrcode), "qrcode")]
 public partial class ClassClockInPage : ContentPage
 {
-
-	private string NID = Preferences.Default.Get("NID", "null");
-	private string Password = Preferences.Default.Get("Password", "null");
-    string ClassClockInURLBase = "https://signin.fcu.edu.tw/clockin/ClassClockIn.aspx?param=";
     private string qrcode = "";
+    private string NID = Preferences.Default.Get("NID", "null");
+	private string Password = Preferences.Default.Get("Password", "null");
 
-    public string TextData
+    public string Qrcode
     {
         get => qrcode;
         set
@@ -30,71 +25,59 @@ public partial class ClassClockInPage : ContentPage
 
     private async void BackButton_Clicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("..");
+        await Shell.Current.GoToAsync("../../");
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
-        ClassClockInWeb.Source = ClassClockInURLBase;
-        DisplayAlert("qrcode", qrcode, "OK");
-        /*
-        bool success = NIDLogin();
-        if (success)
+        _ = DisplayAlert("qrcode", qrcode, "OK");
+        LoginParams loginParams = new()
         {
-            DisplayAlert("Success", "登入成功", "OK");
-            ClassClockInWeb.Source = ClassClockInURLBase + qrcode;
-        }
-        else
-        {
-            DisplayAlert("Error", "登入失敗", "OK");
-        }
-        */
-    }
-
-	private bool NIDLogin()
-	{
-		if (this.NID == "null" || this.Password == "null")
-		{
-            DisplayAlert("Error", "請在設定輸入 NID 與密碼", "OK");
-			return false;
-        }
-
-        LoginParams loginParams = new LoginParams
-        {
-            BeaconMinor = "0",
-            BeaconUUID = "0",
-            RedirectService = "Sing-in",
-            Password = this.Password,
-            Account = this.NID,
-            BeaconMajor = ""
+            username = this.NID,
+            password = this.Password,
+            token = this.qrcode
         };
-
-        Redirect redirect = new Redirect(loginParams);
-        return redirect.postAsync().Result;
+        QRredirect redirect = new(loginParams);
+        string result = await redirect.postAsync();
+        ClassClockInWeb.Source = new HtmlWebViewSource
+        {
+            Html = result
+        };
+        ClassClockInWeb.Reload();
     }
 
     public class LoginParams
     {
-        public required string BeaconMinor { get; set; }
-        public required string BeaconUUID { get; set; }
-        public required string RedirectService { get; set; }
-        public required string Password { get; set; }
-        public required string Account { get; set; }
-        public required string BeaconMajor { get; set; }
+        public required string username { get; set; }
+        public required string password { get; set; }
+        public required string token { get; set; }
     }
 
-    public class Redirect(LoginParams loginParams)
+    public class QRredirect(LoginParams loginParams)
 	{
-        string ClassClockInURL = "https://service206-sds.fcu.edu.tw/mobileservice/RedirectService.svc/Redirect";
-        
-        HttpClient _client = new HttpClient();
-
-        public async Task<bool> postAsync()
+        public async Task<string> postAsync()
         {
-            var _content = new StringContent(JsonConvert.SerializeObject(loginParams), Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _client.PostAsync(ClassClockInURL, _content);
-            var responseContent = await response.Content.ReadAsStringAsync();
-            return (response.StatusCode == HttpStatusCode.OK);
+            try
+            {
+                var parameters = new Dictionary<string, string>();
+                var url = "https://signin.fcu.edu.tw/clockIn/ClassClockinQR.aspx";
+                parameters.Add("username", loginParams.username);
+                parameters.Add("password", loginParams.password);
+                parameters.Add("token", loginParams.token);
+
+                using (HttpClient client = new())
+                {
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    HttpResponseMessage response = client.PostAsync(url, new FormUrlEncodedContent(parameters)).Result;
+                    var result = await response.Content.ReadAsStringAsync();
+                    return result;
+                }
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
     }
 }

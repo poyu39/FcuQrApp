@@ -4,8 +4,7 @@
              xmlns:barcode="clr-namespace:BarcodeScanning;assembly=BarcodeScanning.Native.Maui"
              x:Class="FcuQrApp.Pages.QrScannerPage"
              Shell.PresentationMode="ModalAnimated"
-             Unloaded="ContentPage_Unloaded"
-             Title="QrScannerPage">
+             Unloaded="ContentPage_Unloaded">
 	<AbsoluteLayout>
 	    <barcode:CameraView AbsoluteLayout.LayoutFlags="All"
 	                        AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -13,7 +12,8 @@
 	                        CaptureQuality="High"
 	                        ForceInverted="True"
 	                        TapToFocusEnabled="True"
-	                        BarcodeSymbologies="All"
+	                        BarcodeSymbologies="QRCode"
+	                        PoolingInterval="500"
 	                        AimMode="True"
 	                        x:Name="Barcode"/>
 

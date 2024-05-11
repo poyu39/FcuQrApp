@@ -2,13 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FcuQrApp.Pages.SettingPage"
-             Title="SettingPage">
+             Title="設定">
     <VerticalStackLayout>
-        <Label Text="SettingPage"
-               VerticalOptions="Center"
-               HorizontalOptions="Center" />
         <Entry x:Name="NID" Placeholder="NID" Text="" />
-        <Entry x:Name="Password" Placeholder="Password" Text="" />
+        <Entry x:Name="Password" Placeholder="Password" IsPassword="True"  Text="" />
         <Button Text="Save" Clicked="SaveButton_Clicked" />
     </VerticalStackLayout>
 </ContentPage>

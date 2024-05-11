@@ -38,18 +38,16 @@ public partial class QrScannerPage : ContentPage
         Graphics.Invalidate();
         if (e.BarcodeResults.Length > 0)
         {
+            Barcode.PauseScanning = true;
             string qrcode = e.BarcodeResults[0].DisplayValue;
-            DisplayAlert("Qrcode", qrcode, "OK");
-            // string qrcode = e.BarcodeResults[0].DisplayValue;
-            // await Shell.Current.GoToAsync($"ClassClockInPage?qrcode={qrcode}");
+            Shell.Current.GoToAsync($"ClassClockInPage?qrcode={qrcode}");
         }
-        
     }
 
     private class BarcodeDrawable : IDrawable
     {
         public BarcodeResult[]? barcodeResults;
-        public async void Draw(ICanvas canvas, RectF dirtyRect)
+        public void Draw(ICanvas canvas, RectF dirtyRect)
         {
             if (barcodeResults is not null && barcodeResults.Length > 0)
             {
