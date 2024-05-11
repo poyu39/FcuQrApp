@@ -6,17 +6,16 @@
     xmlns:pages="clr-namespace:FcuQrApp.Pages"
     Shell.FlyoutBehavior="Disabled"
     Title="FcuQrApp">
-
-    <ShellContent Title="Home"
+    <ShellContent Title="主頁"
                   ContentTemplate="{DataTemplate pages:MainPage}"
                   Route="MainPage" />
-    <ShellContent Title="SettingPage"
+    <ShellContent Title="設定"
                   ContentTemplate="{DataTemplate pages:SettingPage}"
                   Route="SettingPage" />
-    <ShellContent Title="QrScannerPage"
+    <ShellContent Title="掃描"
                   ContentTemplate="{DataTemplate pages:QrScannerPage}"
                   Route="QrScannerPage" />
-    <ShellContent Title="ClassClockInPage"
+    <ShellContent Title="打卡"
                   ContentTemplate="{DataTemplate pages:ClassClockInPage}"
                   Route="ClassClockInPage" />
 </Shell>
