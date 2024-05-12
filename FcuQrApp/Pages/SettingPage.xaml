@@ -3,9 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FcuQrApp.Pages.SettingPage"
              Title="設定">
-    <VerticalStackLayout>
-        <Entry x:Name="NID" Placeholder="NID" Text="" />
-        <Entry x:Name="Password" Placeholder="Password" IsPassword="True"  Text="" />
-        <Button Text="Save" Clicked="SaveButton_Clicked" />
-    </VerticalStackLayout>
+	<ScrollView>
+		<VerticalStackLayout Padding="20" Spacing="20">
+			<Label Text="帳號"
+				   HorizontalOptions="Start"
+				   FontSize="Title" />
+			<Entry x:Name="NID" Placeholder="NID" Text="" />
+			<Entry x:Name="Password" Placeholder="Password" IsPassword="True"  Text="" />
+			<Button Text="Save" Clicked="SaveButton_Clicked" />
+		</VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
