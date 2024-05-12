@@ -5,7 +5,7 @@
 	<ScrollView>
         <VerticalStackLayout Padding="10" Spacing="20">
             <Frame>
-                <StackLayout>
+                <StackLayout Padding="10" Spacing="20">
                     <Label Text="帳號"
                            HorizontalOptions="Start"
                            FontSize="Title" />
@@ -15,7 +15,7 @@
                 </StackLayout>
             </Frame>
             <Frame>
-                <StackLayout>
+                <StackLayout Padding="10" Spacing="20">
                     <Label Text="關於"
                            HorizontalOptions="Start"
                            FontSize="Title" />
