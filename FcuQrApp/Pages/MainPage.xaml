@@ -5,7 +5,7 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
-            <Label Text="行動逢甲縮放打卡"
+            <Label Text="逢甲縮放打卡"
                    HorizontalOptions="Center"
                    VerticalOptions="CenterAndExpand"
                    FontSize="Title" />
