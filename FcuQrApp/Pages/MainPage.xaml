@@ -5,9 +5,11 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
-            <Label Text="逢甲縮放打卡"
+            <Image Source="appicon.svg" HeightRequest="200" />
+            <Label Text="逢甲打卡望遠鏡"
                    HorizontalOptions="Center"
                    VerticalOptions="CenterAndExpand"
+                   Padding="0,0,0,50"
                    FontSize="Title" />
             <Button Text="設定" Clicked="SettingButton_Clicked" />
             <Button Text="打卡" Clicked="QrScannerButton_Clicked" />

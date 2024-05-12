@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FcuQrApp.Pages.SettingPage"
-             Title="設定">
+             x:Class="FcuQrApp.Pages.SettingPage">
 	<ScrollView>
-		<VerticalStackLayout Padding="20" Spacing="20">
-			<Label Text="帳號"
-				   HorizontalOptions="Start"
-				   FontSize="Title" />
-			<Entry x:Name="NID" Placeholder="NID" Text="" />
-			<Entry x:Name="Password" Placeholder="Password" IsPassword="True"  Text="" />
-			<Button Text="Save" Clicked="SaveButton_Clicked" />
-		</VerticalStackLayout>
+        <VerticalStackLayout Padding="10" Spacing="20">
+            <Frame>
+                <StackLayout>
+                    <Label Text="帳號"
+                           HorizontalOptions="Start"
+                           FontSize="Title" />
+                    <Entry x:Name="NID" Placeholder="NID" Text="" />
+                    <Entry x:Name="Password" Placeholder="Password" IsPassword="True"  Text="" />
+                    <Button Text="儲存" Clicked="SaveButton_Clicked" />
+                </StackLayout>
+            </Frame>
+            <Frame>
+                <StackLayout>
+                    <Label Text="關於"
+                           HorizontalOptions="Start"
+                           FontSize="Title" />
+                    <Label Text="現在版本： 1.0.0 (beta)" />
+                    <Label Text="作者： poyu39" />
+                    <Button Text="GitHub 專案" Clicked="GithubButton_Clicked" />
+                </StackLayout>
+            </Frame>
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

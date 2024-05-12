@@ -1,3 +1,4 @@
+
 namespace FcuQrApp.Pages;
 
 public partial class SettingPage : ContentPage
@@ -19,4 +20,10 @@ public partial class SettingPage : ContentPage
         Preferences.Default.Set("NID", NID.Text);
         Preferences.Default.Set("Password", Password.Text);
     }
+
+	private void GithubButton_Clicked(object sender, EventArgs e)
+	{
+        Uri uri = new Uri("https://github.com/poyu39/FcuQrApp");
+        Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+	}
 }
